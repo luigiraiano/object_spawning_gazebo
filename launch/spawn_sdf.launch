@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+    <arg name="model_name" default="box" />
+    <arg name="x_init_pose" default="0.0" />
+    <arg name="y_init_pose" default="0.0" />
+    <arg name="z_init_pose" default="1.0" />
+    <arg name="roll_init_pose" default="0"/>
+    <arg name="pitch_init_pose" default="0"/>
+    <arg name="yaw_init_pose" default="0.0" />
+    <arg name="sdf_file_path" default="$(find object_spawning_gazebo)/models/orange_ping_pong_ball/model.sdf" />
+
+    <arg name="spawn_controllers" default="false"/>
+    <arg name="spawn_robot_state_publisher" default="false"/>
+
+    <!-- Set spawning position -->
+    <arg name="xyz" value="'$(arg x_init_pose) $(arg y_init_pose) $(arg z_init_pose)'"/>
+    <arg name="rpy" value="'$(arg roll_init_pose) $(arg pitch_init_pose) $(arg yaw_init_pose)'"/>
+
+    <!-- Robot state and joint state publishers -->
+    <node if="$(arg spawn_robot_state_publisher)" name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+
+    <!-- Spawn model -->
+    <node name="sdf_spawner" pkg="gazebo_ros" type="spawn_model"
+                args="-file $(arg sdf_file_path) -sdf -model $(arg model_name)
+                -x $(arg x_init_pose)
+                -y $(arg y_init_pose)
+                -z $(arg z_init_pose)
+                -R $(arg roll_init_pose)
+                -P $(arg pitch_init_pose)
+                -Y $(arg yaw_init_pose)"/>
+</launch>
