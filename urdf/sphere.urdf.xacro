@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="simple_sphere">
+
+    <!-- Model parameters -->
+    <xacro:arg name="model_name" default="sphere"/>
+
+    <xacro:property name="PI" value="3.1415926535897931"/>
+    <xacro:property name="radius" value="0.5" />
+    <xacro:property name="mass" value="0.5" />
+
+    <material name="red">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+    </material>
+
+    <!-- Sphere inertial macro -->
+    <xacro:macro name="sphere_inertial" params="radius mass *origin">
+        <inertial>
+            <mass value="${mass}" />
+            <xacro:insert_block name="origin" />
+            <inertia ixx="${0.4 * mass * radius * radius}"
+                     iyy="${0.4 * mass * radius * radius}"
+                     ixy="0.0"  ixz="0.0" iyz="0.0"
+                     izz="${0.4 * mass * radius * radius}" />
+        </inertial>
+    </xacro:macro>
+
+    <!-- URDF object macro -->
+    <xacro:macro name="simple_sphere" params="model_prefix">
+
+        <link name="${model_prefix}base_link"/>
+        <link name="${model_prefix}main_link">
+
+           <xacro:sphere_inertial mass="${mass}" radius="${radius}">
+             <origin xyz="0 0 0" rpy="0 0 0" />
+           </xacro:sphere_inertial>
+
+           <visual>
+             <origin xyz="0 0 0" rpy="0 0 0"/>
+             <geometry>
+                <sphere radius="${radius}"/>
+             </geometry>
+           </visual>
+
+           <collision>
+             <origin xyz="0 0 0" rpy="0 0 0"/>
+             <geometry>
+                <sphere radius="${radius}"/>
+             </geometry>
+           </collision>
+
+        </link>
+
+        <joint name="${model_prefix}base_joint" type="fixed">
+            <parent link="${model_prefix}base_link"/>
+            <child link="${model_prefix}main_link"/>
+        </joint>
+
+
+        <!-- Gazebo properties -->
+        <gazebo reference="simple_sphere">
+            <material>Gazebo/Red</material>
+            <turnGravityOff>false</turnGravityOff>
+            <mu1>0.2</mu1>
+            <mu2>0.2</mu2>
+            <minDepth>0.001</minDepth>
+            <maxVel>0.1</maxVel>
+            <static>true</static>
+        </gazebo>
+
+    </xacro:macro>
+
+    <!-- Create macro -->
+    <xacro:simple_sphere model_prefix="$(arg model_name)_"/>
+
+</robot>
