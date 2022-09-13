@@ -1,0 +1,6 @@
+*.kdev*
+*.pyc*
+*~
+*.user
+*.autosave
+*.asv
