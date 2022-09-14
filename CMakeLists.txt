@@ -23,7 +23,7 @@ link_directories(${GAZEBO_LIBRARY_DIRS})
 catkin_package(
     INCLUDE_DIRS include
     #  LIBRARIES object_spawning_gazebo
-#    CATKIN_DEPENDS gazebo_ros roscpp rospy std_msgs tf
+    CATKIN_DEPENDS gazebo_ros roscpp rospy std_msgs tf
     DEPENDS gazebo_ros roscpp rospy std_msgs tf xacro
 )
 
@@ -43,3 +43,12 @@ include_directories(
 # Sphere Shooter
 add_library(${PROJECT_NAME}_sphere_shooter src/sphere_shooter_plugin.cpp)
 target_link_libraries(${PROJECT_NAME}_sphere_shooter ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
+
+## Ball Shooter
+add_library(${PROJECT_NAME}_ball_shooter
+    src/BallShooterPlugin.cpp
+)
+target_link_libraries(${PROJECT_NAME}_ball_shooter PUBLIC
+    ${catkin_LIBRARIES}
+    ${GAZEBO_LIBRARIES}
+)
