@@ -45,10 +45,15 @@ add_library(${PROJECT_NAME}_sphere_shooter src/sphere_shooter_plugin.cpp)
 target_link_libraries(${PROJECT_NAME}_sphere_shooter ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
 
 ## Ball Shooter
-add_library(${PROJECT_NAME}_ball_shooter
+add_library(${PROJECT_NAME}_ball_shooter_plugin
     src/BallShooterPlugin.cpp
 )
-target_link_libraries(${PROJECT_NAME}_ball_shooter PUBLIC
+target_link_libraries(${PROJECT_NAME}_ball_shooter_plugin PUBLIC
     ${catkin_LIBRARIES}
     ${GAZEBO_LIBRARIES}
 )
+
+## Target Pose Publisher Node
+add_executable(${PROJECT_NAME}_target_pose_pub_node src/target_pose_publisher_node.cpp)
+target_link_libraries(${PROJECT_NAME}_target_pose_pub_node PUBLIC ${catkin_LIBRARIES})
+add_dependencies(${PROJECT_NAME}_target_pose_pub_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
