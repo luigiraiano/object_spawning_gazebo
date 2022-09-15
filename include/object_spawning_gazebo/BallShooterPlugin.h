@@ -96,7 +96,7 @@ private:
   std::string token_{""};
   std::string link_name_{""};
 
-  int32_t resetting_period_{10};
+  int32_t resetting_period_{1000};
 };
 
 GZ_REGISTER_WORLD_PLUGIN(BallShooterPlugin);
