@@ -38,5 +38,5 @@ roslaunch object_spawning_gazebo ball_trajectile_shooter.launch launch_rviz:=tru
 - [ ] resetting period is an argument of the model plugin
 - [ ] add initial position randomization
 - [ ] add randomization to force applied
-- [ ] fix force direction for compatibility with robot configuration
+- [x] fix force direction for compatibility with robot configuration
 - [x] The BallShooter must be a Model Plugin defined within the ball sdf
