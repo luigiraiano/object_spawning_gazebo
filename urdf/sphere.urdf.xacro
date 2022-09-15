@@ -63,23 +63,8 @@
             <mu1>0.2</mu1>
             <mu2>0.2</mu2>
             <minDepth>0.001</minDepth>
-            <maxVel>0.1</maxVel>
+            <maxVel>1000</maxVel>
             <static>true</static>
-        </gazebo>
-
-        <gazebo>
-            <plugin name="object_spawning_gazebo_ball_shooter_model_plugin" filename="libobject_spawning_gazebo_ball_shooter_model_plugin.so">
-              <x_axis_force>1000.0</x_axis_force>
-              <y_axis_force>0.0</y_axis_force>
-              <z_axis_force>1000.0</z_axis_force>
-
-              <x_origin>-3.0</x_origin>
-              <y_origin>0.0</y_origin>
-              <z_origin>0.0</z_origin>
-
-              <target_token>ball</target_token>
-              <link_name>link</link_name>
-            </plugin>
         </gazebo>
 
     </xacro:macro>
