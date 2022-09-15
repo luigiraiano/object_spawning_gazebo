@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
 <launch>
     <arg name="fixed_frame" default="world"/>
-    <arg name="radius" value="0.5"/>
-    <arg name="mass" value="0.5"/>
+    <arg name="radius" value="0.05"/>
+    <arg name="mass" value="0.1"/>
 
     <group ns="simple_sphere_1">
         <include file="$(find object_spawning_gazebo)/launch/spawn_urdf.launch">
