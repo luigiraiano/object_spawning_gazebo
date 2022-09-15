@@ -55,5 +55,5 @@ target_link_libraries(${PROJECT_NAME}_ball_shooter_plugin PUBLIC
 
 ## Target Pose Publisher Node
 add_executable(${PROJECT_NAME}_target_pose_pub_node src/target_pose_publisher_node.cpp)
-target_link_libraries(${PROJECT_NAME}_target_pose_pub_node PUBLIC ${catkin_LIBRARIES})
+target_link_libraries(${PROJECT_NAME}_target_pose_pub_node PUBLIC ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
 add_dependencies(${PROJECT_NAME}_target_pose_pub_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
