@@ -17,6 +17,8 @@ void BallShooterPlugin::Load(physics::WorldPtr world, sdf::ElementPtr sdf)
     return;
   }
 
+  ROS_INFO("Ball Shooter Plugin Loaded");
+
   world_ = world;
   GZ_ASSERT(world_ != NULL, "Got NULL world pointer!");
   sdf_ = sdf;
@@ -184,6 +186,7 @@ void BallShooterPlugin::GetTargetList(const std::string& target_token)
     for (auto model : world_->Models())
     {
       std::string model_name = model->GetName();
+      ROS_INFO("Model Name Found: %s", model_name.c_str() );
       if (model_name.find(target_token) != std::string::npos)
       {
         target_model_map_[i] = model;
