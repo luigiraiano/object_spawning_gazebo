@@ -5,8 +5,8 @@
     <xacro:arg name="model_name" default="sphere"/>
 
     <xacro:property name="PI" value="3.1415926535897931"/>
-    <xacro:property name="radius" value="0.5" />
-    <xacro:property name="mass" value="0.5" />
+    <xacro:property name="radius" value="0.05" />
+    <xacro:property name="mass" value="0.1" />
 
     <material name="red">
         <color rgba="1.0 0.0 0.0 1.0"/>
@@ -57,7 +57,7 @@
 
 
         <!-- Gazebo properties -->
-        <gazebo reference="simple_sphere">
+        <gazebo reference="ball">
             <material>Gazebo/Red</material>
             <turnGravityOff>false</turnGravityOff>
             <mu1>0.2</mu1>
@@ -68,19 +68,17 @@
         </gazebo>
 
         <gazebo>
-            <plugin name="object_spawning_gazebo_ball_shooter_plugin" filename="libobject_spawning_gazebo_ball_shooter_plugin.so">
-              <reset_frequency>1</reset_frequency>
-              <x_axis_force>100.0</x_axis_force>
+            <plugin name="object_spawning_gazebo_ball_shooter_model_plugin" filename="libobject_spawning_gazebo_ball_shooter_model_plugin.so">
+              <x_axis_force>1000.0</x_axis_force>
               <y_axis_force>0.0</y_axis_force>
-              <z_axis_force>100.0</z_axis_force>
+              <z_axis_force>1000.0</z_axis_force>
 
-              <x_origin>0.0</x_origin>
+              <x_origin>-3.0</x_origin>
               <y_origin>0.0</y_origin>
               <z_origin>0.0</z_origin>
 
-              <random_range>0.5</random_range>
               <target_token>ball</target_token>
-
+              <link_name>link</link_name>
             </plugin>
         </gazebo>
 
