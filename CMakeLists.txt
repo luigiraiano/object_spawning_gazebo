@@ -22,7 +22,7 @@ link_directories(${GAZEBO_LIBRARY_DIRS})
 
 catkin_package(
     INCLUDE_DIRS include
-    #  LIBRARIES object_spawning_gazebo
+    LIBRARIES ${PROJECT_NAME}_ball_shooter_plugin ${PROJECT_NAME}_ball_shooter_model_plugin
     CATKIN_DEPENDS gazebo_ros roscpp rospy std_msgs tf
     DEPENDS gazebo_ros roscpp rospy std_msgs tf xacro
 )
@@ -44,7 +44,7 @@ include_directories(
 add_library(${PROJECT_NAME}_sphere_shooter src/sphere_shooter_plugin.cpp)
 target_link_libraries(${PROJECT_NAME}_sphere_shooter ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
 
-## Ball Shooter
+## Ball Shooter - World Plugin
 add_library(${PROJECT_NAME}_ball_shooter_plugin
     src/BallShooterPlugin.cpp
 )
@@ -53,7 +53,29 @@ target_link_libraries(${PROJECT_NAME}_ball_shooter_plugin PUBLIC
     ${GAZEBO_LIBRARIES}
 )
 
+## Ball Shooter - Model Plugin
+add_library(${PROJECT_NAME}_ball_shooter_model_plugin
+    src/BallShooterModelPlugin.cpp
+)
+target_link_libraries(${PROJECT_NAME}_ball_shooter_model_plugin PUBLIC
+    ${catkin_LIBRARIES}
+    ${GAZEBO_LIBRARIES}
+)
+
 ## Target Pose Publisher Node
 add_executable(${PROJECT_NAME}_target_pose_pub_node src/target_pose_publisher_node.cpp)
 target_link_libraries(${PROJECT_NAME}_target_pose_pub_node PUBLIC ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
 add_dependencies(${PROJECT_NAME}_target_pose_pub_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+# Install
+install(TARGETS ${PROJECT_NAME}_ball_shooter_plugin
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+install(TARGETS ${PROJECT_NAME}_ball_shooter_model_plugin
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
