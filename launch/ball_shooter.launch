@@ -12,7 +12,7 @@
         </include>
     </group>
 
-    <!-- Launch RVIZ node-->
+    <!-- Launch Gazebo World -->
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
         <arg name="world_name" value="$(find object_spawning_gazebo)/worlds/ball_shooter.world"/>
         <arg name="verbose" value="true" />
