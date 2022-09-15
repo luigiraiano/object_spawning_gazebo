@@ -4,11 +4,11 @@
     <arg name="model_name" default="box" />
     <arg name="x_init_pose" default="0.0" />
     <arg name="y_init_pose" default="0.0" />
-    <arg name="z_init_pose" default="1.0" />
+    <arg name="z_init_pose" default="0.0" />
     <arg name="roll_init_pose" default="0"/>
     <arg name="pitch_init_pose" default="0"/>
     <arg name="yaw_init_pose" default="0.0" />
-    <arg name="sdf_file_path" default="$(find object_spawning_gazebo)/models/orange_ping_pong_ball/model.sdf" />
+    <arg name="sdf_file_path" default="$(find object_spawning_gazebo)/models/$(arg model_name)/model.sdf" />
 
     <arg name="spawn_controllers" default="false"/>
     <arg name="spawn_robot_state_publisher" default="false"/>
