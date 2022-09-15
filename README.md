@@ -15,10 +15,24 @@ roslaunch object_spawning_gazebo ball_shooter.launch
 ```
 A demo of the simulation can be found at the followinf [link](https://youtu.be/T3CwwptJAtQ).
 
+
+## Ball Trajectile Gazebo Model Plugin
+
+1. Launch a Gazebo World. For example to launch an empty world:
+```
+roslaunch gazebo_ros empty_world.launch
+```
+
+2. Spawn the ball shooter within gazebo
+```
+roslaunch object_spawning_gazebo ball_trajectile_shooter.launch launch_rviz:=true
+```
+- Note: if an RVIZ gui is launched from another node, set the argument `launch_rviz:=false`.
+
 ## Gazebo Plugin Turorials
 - [Introduction](https://classic.gazebosim.org/tutorials?tut=plugins_hello_world)
 - [Model Plugin](https://classic.gazebosim.org/tutorials?tut=plugins_model&cat=write_plugin)
 
 
 ## TODO
-- [ ] The BallShooter must be a Model Plugin defined within the ball sdf
+- [x] The BallShooter must be a Model Plugin defined within the ball sdf
