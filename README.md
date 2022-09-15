@@ -13,9 +13,7 @@ To run a demo with a simulated ball trajectile within Gazebo launch the followin
 ```
 roslaunch object_spawning_gazebo ball_shooter.launch
 ```
-A demo of the simulation can be found at the followinf [link]()
-
-This video shows a ball trajectile simulated within Gazebo + ROS using Gazebo WorldPlugin.
+A demo of the simulation can be found at the followinf [link](https://youtu.be/T3CwwptJAtQ).
 
 ## Gazebo Plugin Turorials
 - [Introduction](https://classic.gazebosim.org/tutorials?tut=plugins_hello_world)
