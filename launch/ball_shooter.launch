@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
-  <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find object_spawning_gazebo)/worlds/ball_shooter.world"/>
-    <arg name="verbose" value="true" />
-    <arg name="paused" value="true" />
-  </include>
+    <arg name="launch_rviz" default="false"/>
+    <arg name="rviz_config_file" value="$(find object_spawning_gazebo)/rviz/ball_shooter.rviz"/>
+
+    <!-- Pose Publisher-->
+    <group ns="lr">
+        <include file="$(find object_spawning_gazebo)/launch/pose_publisher.launch">
+            <arg name="token_name" value="ball"/>
+            <arg name="tf_name" value="target"/>
+            <arg name="world" value="world"/>
+        </include>
+    </group>
+
+    <!-- Launch RVIZ node-->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(find object_spawning_gazebo)/worlds/ball_shooter.world"/>
+        <arg name="verbose" value="true" />
+        <arg name="paused" value="true" />
+    </include>
+
+    <!-- Launch RVIZ node-->
+    <group if="$(arg launch_rviz)">
+        <node pkg="rviz" type="rviz" name="rviz" args="-d $(arg rviz_config_file)"/>
+    </group>
 
 </launch>

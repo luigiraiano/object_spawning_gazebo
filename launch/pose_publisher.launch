@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+
+    <arg name="token_name" default="world" doc="name used to select the targets from all the ones published by gazebo"/>
+    <arg name="tf_name" default="world" doc="name used to publish the selected targets over /tf topic"/>
+    <arg name="world" default="world" doc="reference frame for the targets"/>
+
+    <!-- Spaqn TF Target Pose Publisher -->
+    <node name="target_pose_pub_node" pkg="object_spawning_gazebo" type="object_spawning_gazebo_target_pose_pub_node" output="screen" required="false">
+        <param name="token" type="str" value="$(arg token_name)"/>
+        <param name="tf_target_name" type="str" value="$(arg tf_name)"/>
+        <param name="world_name" type="str" value="$(arg world)"/>
+    </node>
+
+</launch>
