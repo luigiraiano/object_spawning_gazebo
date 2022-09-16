@@ -11,7 +11,7 @@ roslaunch object_spawning_gazebo spawn_scenario.launch scenario:=my_scenario
 ## Ball Trajectile Gazebo World Plugin
 To run a demo with a simulated ball trajectile within Gazebo launch the following command:
 ```
-roslaunch object_spawning_gazebo ball_shooter.launch
+roslaunch object_spawning_gazebo ball_shooter_with_world.launch
 ```
 A demo of the simulation can be found at the followinf [link](https://youtu.be/T3CwwptJAtQ).
 
@@ -25,7 +25,7 @@ roslaunch gazebo_ros empty_world.launch
 
 2. Spawn the ball shooter within gazebo
 ```
-roslaunch object_spawning_gazebo ball_trajectile_shooter.launch launch_rviz:=true
+roslaunch object_spawning_gazebo ball_shooter.launch launch_rviz:=true
 ```
 - Note: if an RVIZ gui is launched from another node, set the argument `launch_rviz:=false`.
 
