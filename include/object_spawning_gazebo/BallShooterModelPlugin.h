@@ -33,9 +33,8 @@ public:
   void Load(physics::ModelPtr _parent, sdf::ElementPtr sdf) override;
 
 private:
-  void OnUpdate();
-  void OnTimeReset();
-  void OnPause();
+  void OnUpdateSlot();
+  void OnTimeResetSlot();
 
 private:
 
@@ -58,7 +57,6 @@ protected:
 private:
   event::ConnectionPtr update_connection_;
   event::ConnectionPtr time_reset_connection_;
-  event::ConnectionPtr pause_connection_;
 
   // Force Direction
   double force_x_ = 0.0;
@@ -73,6 +71,8 @@ private:
   std::string token_{""};
   std::string link_name_{""};
 
+  // Resetting period
+  int resetting_period_{10};
 };
 
 // Register this plugin with the simulator

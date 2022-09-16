@@ -17,80 +17,88 @@ void BallShooterModelPlugin::Load(physics::ModelPtr model, sdf::ElementPtr sdf)
     return;
   }
 
-  ROS_INFO("Ball Shooter Model Plugin Loaded");
+  ROS_INFO( "Ball Shooter Model Plugin Loaded - Model Name: %s", model->GetName().c_str() );
 
   model_ = model;
   GZ_ASSERT(model_ != NULL, "Got NULL Model pointer!");
   sdf_ = sdf;
   GZ_ASSERT(sdf_ != NULL, "Got NULL SDF element pointer!");
 
-  ROS_INFO("Model Name: %s", model_->GetName().c_str());
-
-
   // Get Params
   ROS_INFO_STREAM("Name of BallShooterPlugin SDF: " << sdf_->ReferenceSDF() );
   sdf_->PrintValues("BallShooterPlugin");
 
+  // Get Force
   if (sdf->HasElement("x_axis_force"))
+  {
     force_x_ = sdf->Get<double>("x_axis_force");
+  }
   if (sdf->HasElement("y_axis_force"))
+  {
     force_y_ = sdf->Get<double>("y_axis_force");
+  }
   if (sdf->HasElement("z_axis_force"))
+  {
     forc_z_ = sdf->Get<double>("z_axis_force");
+  }
 
+  // Get Origin
   if (sdf->HasElement("x_origin"))
+  {
     x_origin_ = sdf->Get<double>("x_origin");
+  }
   if (sdf->HasElement("y_origin"))
+  {
     y_origin_ = sdf->Get<double>("y_origin");
+  }
   if (sdf->HasElement("z_origin"))
+  {
     z_origin_ = sdf->Get<double>("z_origin");
+  }
 
+  // Get token name
   if(sdf->HasElement("target_token"))
   {
     token_ = sdf->Get<std::string>("target_token");
   }
   ROS_INFO_STREAM("Token: " << token_);
 
+  // Get Link Name
   if(sdf->HasElement("link_name"))
   {
     link_name_ = sdf->Get<std::string>("link_name");
   }
   ROS_INFO_STREAM("Link Name: " << link_name_);
-
   model_->SetName(token_);
+  ROS_INFO( "Ball Shooter Model Name changed from %s to %s", model->GetName().c_str(), model->GetName().c_str() );
 
-  update_connection_ = event::Events::ConnectWorldUpdateBegin( std::bind(&BallShooterModelPlugin::OnUpdate, this) );
-  time_reset_connection_ = event::Events::ConnectTimeReset( std::bind(&BallShooterModelPlugin::OnTimeReset, this) );
-  pause_connection_ = event::Events::ConnectPause( std::bind(&BallShooterModelPlugin::OnPause, this) );
+  // Get Restting period
+  if( sdf->HasElement("reset_period") )
+  {
+    resetting_period_ = sdf->Get<int>("reset_period");
+  }
 
-//  ros::Duration(5).sleep();
-
-//  ResetPose(model_);
-//  SetForce(model_, link_name_);
+  // Set Event-Slots connections
+  update_connection_ = event::Events::ConnectWorldUpdateBegin( std::bind(&BallShooterModelPlugin::OnUpdateSlot, this) );
+  time_reset_connection_ = event::Events::ConnectTimeReset( std::bind(&BallShooterModelPlugin::OnTimeResetSlot, this) );
 }
 
-void BallShooterModelPlugin::OnUpdate()
+void BallShooterModelPlugin::OnUpdateSlot()
 {
   int t = static_cast<int>(ros::Time::now().toSec());
 
-  if(t % 10 == 0)
+  if(t % resetting_period_ == 0)
   {
     ResetPose(model_);
     SetForce(model_, link_name_);
   }
-//  ROS_INFO( "Model Plugin Updating - %f", ros::Time::now().toSec() );
 }
 
-void BallShooterModelPlugin::OnTimeReset()
+void BallShooterModelPlugin::OnTimeResetSlot()
 {
   ROS_INFO( "Gazebo Time Reset - Resetting Ball Pose" );
   ResetPose(model_);
   SetForce(model_, link_name_);
-}
-
-void BallShooterModelPlugin::OnPause()
-{
-  ROS_INFO( "Gazebo Paused" );
 }
 
 void BallShooterModelPlugin::ResetPose(boost::shared_ptr<gazebo::physics::Model> model)

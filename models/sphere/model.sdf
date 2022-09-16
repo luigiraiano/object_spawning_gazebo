@@ -70,6 +70,8 @@
 
         <target_token>ball</target_token>
         <link_name>link</link_name>
+
+        <reset_period>10</reset_period>
       </plugin>
   </model>
 </sdf>
