@@ -20,6 +20,8 @@
 #include <ignition/math/Vector3.hh>
 #include <ignition/math/Quaternion.hh>
 
+#include <random>
+
 namespace gazebo
 {
 
@@ -42,7 +44,9 @@ private:
 
   void SetForce(boost::shared_ptr<gazebo::physics::Model> model, const std::string& link_name);
 
-  double RandomFloat(const double& a, const double& b);
+  double Randomize(const double& a, const double& b);
+
+  double RandomizeRange(const double& val, const double& range);
 
 protected:
   // World pointer
@@ -61,7 +65,7 @@ private:
   // Force Direction
   double force_x_ = 0.0;
   double force_y_ = 0.0;
-  double forc_z_ = 0.0;
+  double force_z_ = 0.0;
 
   // Target Origin
   double x_origin_ = 0.0;

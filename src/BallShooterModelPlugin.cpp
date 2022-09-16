@@ -39,7 +39,7 @@ void BallShooterModelPlugin::Load(physics::ModelPtr model, sdf::ElementPtr sdf)
   }
   if (sdf->HasElement("z_axis_force"))
   {
-    forc_z_ = sdf->Get<double>("z_axis_force");
+    force_z_ = sdf->Get<double>("z_axis_force");
   }
 
   // Get Origin
@@ -111,8 +111,16 @@ void BallShooterModelPlugin::ResetPose(boost::shared_ptr<gazebo::physics::Model>
   double y_pose{0.0};
   double z_pose{0.0};
 
-  x_pose = x_origin_;
-  y_pose = y_origin_;
+  double random_range{0.2};
+
+//  x_pose = x_origin_;
+//  y_pose = y_origin_;
+//  z_pose = z_origin_;
+//  x_pose = RandN(x_origin_, random_range);
+//  y_pose = RandN(y_origin_, random_range);
+//  z_pose = z_origin_;
+  x_pose = RandomizeRange(x_origin_, random_range);
+  y_pose = RandomizeRange(y_origin_, random_range);
   z_pose = z_origin_;
 
   model->SetWorldPose( ignition::math::Pose3d(
@@ -126,13 +134,26 @@ void BallShooterModelPlugin::SetForce(boost::shared_ptr<gazebo::physics::Model> 
   model->GetLink(link_name)->SetLinearVel(ignition::math::Vector3d(0.0, 0.0, 0.0));
 
   model->GetLink(link_name)->SetForce(ignition::math::Vector3d(0.0, 0.0, 0.0));
-  model->GetLink(link_name)->SetForce(ignition::math::Vector3d(force_x_, force_y_, forc_z_));
+  model->GetLink(link_name)->SetForce(ignition::math::Vector3d(force_x_, force_y_, force_z_));
 }
 
-double BallShooterModelPlugin::RandomFloat(const double& a, const double& b)
+double BallShooterModelPlugin::Randomize(const double& a, const double& b)
 {
   double random = static_cast<double>( rand() / RAND_MAX );
   double diff = b - a;
   double r = random * diff;
   return a + r;
+}
+
+double BallShooterModelPlugin::RandomizeRange(const double& val, const double& range)
+{
+  double rand_val{0.0};
+
+  std::random_device rd; // obtain a random number from hardware
+  std::mt19937 gen(rd()); // seed the generator
+  std::uniform_real_distribution<> distr(val-range, val + range); // define the range
+
+  rand_val = distr(gen);
+
+  return rand_val;
 }
