@@ -6,17 +6,18 @@
     <!-- Pose Publisher-->
     <group ns="lr">
         <include file="$(find object_spawning_gazebo)/launch/pose_publisher.launch">
-            <arg name="token_name" value="ball"/>
+            <arg name="token_name" value="sphere"/>
             <arg name="tf_name" value="target"/>
             <arg name="world" value="world"/>
         </include>
     </group>
 
-    <!-- Launch Gazebo World -->
-    <include file="$(find gazebo_ros)/launch/empty_world.launch">
-        <arg name="world_name" value="$(find object_spawning_gazebo)/worlds/ball_shooter.world"/>
-        <arg name="verbose" value="true" />
-        <arg name="paused" value="true" />
+    <!-- Spawn Ball Trajectile Model (Gazebo World must have been already launched) -->
+    <include file="$(find object_spawning_gazebo)/launch/spawn_model.launch">
+        <arg name="model_name" default="sphere"/>
+        <arg name="x_init_pose" default="5.0" />
+        <arg name="y_init_pose" default="0.0" />
+        <arg name="z_init_pose" default="0.0" />
     </include>
 
     <!-- Launch RVIZ node-->
