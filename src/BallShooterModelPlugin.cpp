@@ -113,15 +113,15 @@ void BallShooterModelPlugin::ResetPose(boost::shared_ptr<gazebo::physics::Model>
 
   double random_range{0.2};
 
-//  x_pose = x_origin_;
-//  y_pose = y_origin_;
-//  z_pose = z_origin_;
+  x_pose = x_origin_;
+  y_pose = y_origin_;
+  z_pose = z_origin_;
 //  x_pose = RandN(x_origin_, random_range);
 //  y_pose = RandN(y_origin_, random_range);
 //  z_pose = z_origin_;
-  x_pose = RandomizeRange(x_origin_, random_range);
-  y_pose = RandomizeRange(y_origin_, random_range);
-  z_pose = z_origin_;
+//  x_pose = RandomizeRange(x_origin_, random_range);
+//  y_pose = RandomizeRange(y_origin_, random_range);
+//  z_pose = z_origin_;
 
   model->SetWorldPose( ignition::math::Pose3d(
                                               ignition::math::Vector3d(x_pose, y_pose, z_pose),
