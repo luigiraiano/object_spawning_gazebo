@@ -15,7 +15,7 @@
     <!-- Spawn Ball Trajectile Model (Gazebo World must have been already launched) -->
     <include file="$(find object_spawning_gazebo)/launch/spawn_model.launch">
         <arg name="model_name" default="sphere"/>
-        <arg name="x_init_pose" default="5.0" />
+        <arg name="x_init_pose" default="10.0" />
         <arg name="y_init_pose" default="0.0" />
         <arg name="z_init_pose" default="0.0" />
     </include>

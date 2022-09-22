@@ -60,11 +60,11 @@
       </link>
 
       <plugin name="object_spawning_gazebo_ball_shooter_model_plugin" filename="libobject_spawning_gazebo_ball_shooter_model_plugin.so">
-        <x_axis_force>-1200.0</x_axis_force>
+        <x_axis_force>-970.0</x_axis_force>
         <y_axis_force>0.0</y_axis_force>
-        <z_axis_force>1200.0</z_axis_force>
+        <z_axis_force>3000.0</z_axis_force>
 
-        <x_origin>5.0</x_origin>
+        <x_origin>10.0</x_origin>
         <y_origin>0.0</y_origin>
         <z_origin>0.0</z_origin>
 
